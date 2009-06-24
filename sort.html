@@ -7,27 +7,28 @@
  
     <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
+  
   $("div.box").css({"left":"45px","position":"absolute","background-color":"#abc", "width":"100px", "height":"120px"});
   $("div").each( function(i){
              this.style.top = 50 + i*50 + "px";
+   });
+ 
+ 
+  $("#sort").click(function(){
+ 
+  var divs = $("div#h>div");
+ 
+  divs.sort(function(a,b) {
+  return a.childNodes[3].textContent > b.childNodes[3].textContent;
   });
  
-
-  $("#sort").click(function(){
-
-  var divs = $("div#h>div");
-
-  divs.sort(function(a,b) {
-  return a.childNodes[3].textContent >  b.childNodes[3].textContent;
-  });
-
   var z = [];
   $.each(divs, function(i) {
   z[i] = divs.eq(i).css("top");
   });
-
-  alert(z);
-
+ 
+  // alert(z);
+ 
   $.each(z, function(i) {
       var top = z[i];
       $("div#h>div").eq(i).animate({"top": top}, "slow");
@@ -35,43 +36,45 @@
   });
   
   $("#sort2").click(function(){
-  var x = $("div#h>div>div.b").tsort({order:'desc',returns:true,place:"org"});
-
-  
+ 
   var divs = $("div#h>div");
+ 
+  divs.sort(function(a,b) {
+  return a.childNodes[5].textContent > b.childNodes[5].textContent;
+  });
+ 
   var z = [];
   $.each(divs, function(i) {
   z[i] = divs.eq(i).css("top");
   });
-
-  $.each(x, function(i) {
-      var top = z[x[i]];
+ 
+  // alert(z);
+ 
+  $.each(z, function(i) {
+      var top = z[i];
       $("div#h>div").eq(i).animate({"top": top}, "slow");
      });
   });
 
-
-  });
-
-
+ });
      </script>
 </head>
 <body>
 <div id="h">
-<div class="box"> 
-<img src="1.jpg" width="75" height="75" alt="" /> <div class="a">sfjklas</div> <div class="b">xubaatez</div> 
+<div class="box">
+<img src="1.jpg" width="75" height="75" alt="" /> <div class="a">sfjklas</div> <div class="b">xubaatez</div>
 </div>
-<div class="box"> 
-<img src="2.jpg" width="75" height="75" alt="" /> <div class="a">gkldf</div> <div class="b">hixfeedbuk</div> 
+<div class="box">
+<img src="2.jpg" width="75" height="75" alt="" /> <div class="a">gkldf</div> <div class="b">hixfeedbuk</div>
 </div>
-<div class="box"> 
-<img src="3.jpg" width="75" height="75" alt="" /> <div class="a">terews</div> <div class="b">eispiecees</div> 
+<div class="box">
+<img src="3.jpg" width="75" height="75" alt="" /> <div class="a">terews</div> <div class="b">eispiecees</div>
 </div>
-<div class="box"> 
-<img src="4.jpg" width="75" height="75" alt="" /> <div class="a">aasdfsdtg</div> <div class="b">anoces</div> 
+<div class="box">
+<img src="4.jpg" width="75" height="75" alt="" /> <div class="a">aasdfsdtg</div> <div class="b">anoces</div>
 </div>
-<div class="box"> 
-<img src="5.jpg" width="75" height="75" alt="" /> <div class="a">hgfsdga</div> <div class="b">jonofnu</div> 
+<div class="box">
+<img src="5.jpg" width="75" height="75" alt="" /> <div class="a">hgfsdga</div> <div class="b">jonofnu</div>
 </div>
 </div>
 <br/>
