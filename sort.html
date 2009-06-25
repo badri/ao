@@ -8,51 +8,83 @@
     <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
   
-  $("div.box").css({"left":"45px","position":"absolute","background-color":"#abc", "width":"100px", "height":"120px"});
+  $("div.box").css({"top":"100px","position":"absolute","background-color":"#abc", "width":"100px", "height":"120px", "padding-left":"10px"});
   $("div").each( function(i){
-             this.style.top = 50 + i*50 + "px";
+             this.style.left =  i*50 + "px";
    });
  
  
   $("#sort").click(function(){
  
   var divs = $("div#h>div");
- 
+  // sort 
   divs.sort(function(a,b) {
   return a.childNodes[3].textContent > b.childNodes[3].textContent;
   });
  
-  var z = [];
-  $.each(divs, function(i) {
-  z[i] = divs.eq(i).css("top");
+ 
+  var us_txt = [];
+  $.each($("div#h>div>div.a"), function(i) {
+  us_txt[i] = $("div#h>div>div.a").eq(i).text();
   });
  
-  // alert(z);
- 
-  $.each(z, function(i) {
-      var top = z[i];
-      $("div#h>div").eq(i).animate({"top": top}, "slow");
+  var s_txt = [];
+  $.each(divs, function(i) {
+  s_txt[i] = divs[i].childNodes[3].textContent;
+  });
+
+  var ri = [];
+
+  function index_of(arr, ele) {
+   for(var i=0; i< arr.length; i++){
+      if(arr[i] == ele) return i;
+   }
+  }
+			     
+  for(var j=0; j< s_txt.length;j++) {
+  ri[j] = index_of(us_txt, s_txt[j]);
+  }
+
+   
+  $.each($("div#h>div"), function(i) {
+      $("div#h>div").eq(ri[i]).animate({"left": 50 + i*150 + "px"}, "slow");
      });
   });
   
   $("#sort2").click(function(){
  
   var divs = $("div#h>div");
- 
+  // sort 
   divs.sort(function(a,b) {
   return a.childNodes[5].textContent > b.childNodes[5].textContent;
   });
  
-  var z = [];
-  $.each(divs, function(i) {
-  z[i] = divs.eq(i).css("top");
+ 
+  var us_txt = [];
+  $.each($("div#h>div>div.b"), function(i) {
+  us_txt[i] = $("div#h>div>div.b").eq(i).text();
   });
  
-  // alert(z);
- 
-  $.each(z, function(i) {
-      var top = z[i];
-      $("div#h>div").eq(i).animate({"top": top}, "slow");
+  var s_txt = [];
+  $.each(divs, function(i) {
+  s_txt[i] = divs[i].childNodes[5].textContent;
+  });
+
+  var ri = [];
+
+  function index_of(arr, ele) {
+   for(var i=0; i< arr.length; i++){
+      if(arr[i] == ele) return i;
+   }
+  }
+			     
+  for(var j=0; j< s_txt.length;j++) {
+  ri[j] = index_of(us_txt, s_txt[j]);
+  }
+
+   
+  $.each($("div#h>div"), function(i) {
+      $("div#h>div").eq(ri[i]).animate({"left": 50 + i*150 + "px"}, "slow");
      });
   });
 
