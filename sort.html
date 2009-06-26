@@ -7,10 +7,18 @@
  
     <script type="text/javascript" charset="utf-8">
   $(document).ready(function(){
+  left = ["50px", "250px", "450px", "650px", "850px"];
+
+  function index_of(arr, ele) {
+   for(var i=0; i< arr.length; i++){
+      if(arr[i] == ele) return i;
+   }
+   return -1;
+  }
   
-  $("div.box").css({"top":"100px","position":"absolute","background-color":"#abc", "width":"100px", "height":"120px", "padding-left":"10px"});
-  $("div").each( function(i){
-             this.style.left =  i*50 + "px";
+  $("div.box").css({"top":"100px","position":"absolute","background-color":"#abc", "width":"100px", "height":"120px", "padding-left":"2px"});
+  $("div#h>div").each( function(i){
+             this.style.left =  left[i];
    });
  
  
@@ -34,12 +42,6 @@
   });
 
   var ri = [];
-
-  function index_of(arr, ele) {
-   for(var i=0; i< arr.length; i++){
-      if(arr[i] == ele) return i;
-   }
-  }
 			     
   for(var j=0; j< s_txt.length;j++) {
   ri[j] = index_of(us_txt, s_txt[j]);
@@ -47,10 +49,11 @@
 
    
   $.each($("div#h>div"), function(i) {
-      $("div#h>div").eq(ri[i]).animate({"left": 50 + i*150 + "px"}, "slow");
+      $("div#h>div").eq(ri[i]).animate({"left": left[i]}, "slow");
      });
   });
-  
+
+  /* ---------------------------------------------- */  
   $("#sort2").click(function(){
  
   var divs = $("div#h>div");
@@ -84,33 +87,56 @@
 
    
   $.each($("div#h>div"), function(i) {
-      $("div#h>div").eq(ri[i]).animate({"left": 50 + i*150 + "px"}, "slow");
+      $("div#h>div").eq(ri[i]).animate({"left": left[i]}, "slow");
      });
   });
 
+  /* ---------------------------------------------- */
+  $("#blue").click(function(){
+  // must be done like insertion sort
+   var swap_with = 0;
+   var swap_array = new Array(5); // number of divs
+   $.each($("div#h>div"), function(i) {
+       var color = $("div#h>div:eq("+i+")>div.col").text();       
+       if(color=="blue")
+       { 
+         swap_array[i] = new Array(swap_with, i);
+         swap_with++;
+       }
+     });
+
+  // fill voids
+  for(var j=0; j<swap_array.length; j++){
+    if(!swap_array[j][0])
+       swap_array[j] = [j,j];
+  }  
+  });
+
+ alert(swap_array);
  });
      </script>
 </head>
 <body>
 <div id="h">
 <div class="box">
-<img src="1.jpg" width="75" height="75" alt="" /> <div class="a">sfjklas</div> <div class="b">xubaatez</div>
+<img src="1.jpg" width="75" height="75" alt="" /> <div class="a">sfjklas</div> <div class="b">xubaatez</div><div class="col">red</div>
 </div>
 <div class="box">
-<img src="2.jpg" width="75" height="75" alt="" /> <div class="a">gkldf</div> <div class="b">hixfeedbuk</div>
+<img src="2.jpg" width="75" height="75" alt="" /> <div class="a">gkldf</div> <div class="b">hixfeedbuk</div><div class="col">blue</div>
 </div>
 <div class="box">
-<img src="3.jpg" width="75" height="75" alt="" /> <div class="a">terews</div> <div class="b">eispiecees</div>
+<img src="3.jpg" width="75" height="75" alt="" /> <div class="a">terews</div> <div class="b">eispiecees</div><div class="col">red</div>
 </div>
 <div class="box">
-<img src="4.jpg" width="75" height="75" alt="" /> <div class="a">aasdfsdtg</div> <div class="b">anoces</div>
+<img src="4.jpg" width="75" height="75" alt="" /> <div class="a">aasdfsdtg</div> <div class="b">anoces</div><div class="col">blue</div>
 </div>
 <div class="box">
-<img src="5.jpg" width="75" height="75" alt="" /> <div class="a">hgfsdga</div> <div class="b">jonofnu</div>
+<img src="5.jpg" width="75" height="75" alt="" /> <div class="a">hgfsdga</div> <div class="b">jonofnu</div><div class="col">red</div>
 </div>
 </div>
 <br/>
 <button id="sort">sort a </button>
 <button id="sort2">sort b </button>
+<button id="blue">remove blue</button>
 </body>
 </html>
