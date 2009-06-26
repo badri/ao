@@ -96,13 +96,14 @@
 					var bSList = i>=iLow&&i<iLow+oParent.s.length;
 					if (contains(aOrg,i)) bSList = true;
 					var mEl = (bSList?oParent.s:oParent.n)[aCnt[bSList?0:1]].e;
-					mEl.parent().append(mEl);
+					//mEl.parent().append(mEl);
 					if (bSList||!oSettings.returns) aNewOrder.push(mEl.get(0));
 					aCnt[bSList?0:1]++;
 				}
 			}
 			//
-			return this.setArray(aNewOrder); // setArray or pushStack?
+			//return this.setArray(aNewOrder); // setArray or pushStack?
+                        return this.setArray(aOrg);
 		}
 	});
 	// is numeric
