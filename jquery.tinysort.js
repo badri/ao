@@ -66,6 +66,8 @@
 			// sort
 			for (var sParent in oElements) {
 				var oParent = oElements[sParent];
+			  if(!oSettings.sort) {
+			    alert(oSettings.sort);
 				oParent.s.sort(
 					function zeSort(a,b) {
 						var x = a.s.toLowerCase?a.s.toLowerCase():a.s;
@@ -77,6 +79,25 @@
 						return (oSettings.order=="asc"?1:-1)*(x<y?-1:(x>y?1:0));
 					}
 				);
+			    }
+			  else {
+			    // alert(oSettings.sort+" went int custom sort");
+			    oParent.s.sort(   function zeSort(a,b) {
+						var x = a.s.toLowerCase?a.s.toLowerCase():a.s;
+						var y = b.s.toLowerCase?b.s.toLowerCase():b.s;
+						if (isNum(a.s)&&isNum(b.s)) {
+						  x = parseFloat(a.s);
+						  y = parseFloat(b.s);
+						}
+						x=(x=="white")?1:0;
+						y=(y=="white")?1:0;
+						// alert(x+","+y);
+						// return (oSettings.order=="asc"?1:-1)*(x<y?-1:(x>y?1:0));
+						return x<y;
+					      }
+                                           );
+			  }
+			  //oParent.s.sort(oSettings.sort);
 			}
 			//
 			// order elements and fill new order

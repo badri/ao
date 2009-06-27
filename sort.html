@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <script type="text/javascript" src="http://jqueryui.com/latest/jquery-1.3.2.js"></script>
+  <script type="text/javascript" src="jquery-1.2.6.min.js"></script>
   <script type="text/javascript" src="jquery.tinysort.js"></script>
  
  
@@ -93,26 +93,36 @@
 
   /* ---------------------------------------------- */
   $("#blue").click(function(){
-  // must be done like insertion sort
-   var swap_with = 0;
-   var swap_array = new Array(5); // number of divs
+   var sorted_array = $("div#h>div>div.col").tsort({returns:true,place:"org"});
    $.each($("div#h>div"), function(i) {
-       var color = $("div#h>div:eq("+i+")>div.col").text();       
-       if(color=="blue")
-       { 
-         swap_array[i] = new Array(swap_with, i);
-         swap_with++;
-       }
+      $("div#h>div").eq(sorted_array[i]).animate({"left": left[i]}, "slow");
      });
-
-  // fill voids
-  for(var j=0; j<swap_array.length; j++){
-    if(!swap_array[j][0])
-       swap_array[j] = [j,j];
-  }  
   });
 
- alert(swap_array);
+  /* ------demonstrating custom sort method-------- */
+  $("#white").click(function(){
+   // alert("clicked");
+   var sorted_array = $("div#h>div>div.col").tsort({
+    returns:true,
+    place:"org",
+   sort:   function(a,b) { 
+      var x = a.s.toLowerCase?a.s.toLowerCase():a.s;
+      var y = b.s.toLowerCase?b.s.toLowerCase():b.s;
+      if (isNum(a.s)&&isNum(b.s)) {
+        x = parseFloat(a.s);
+        y = parseFloat(b.s);
+      }
+      x=(x=="white")?1:0;
+      y=(y=="white")?1:0;
+      return x<y;
+   }
+   });
+
+   $.each($("div#h>div"), function(i) {
+      $("div#h>div").eq(sorted_array[i]).animate({"left": left[i]}, "slow");
+     });
+  });
+
  });
      </script>
 </head>
@@ -128,15 +138,16 @@
 <img src="3.jpg" width="75" height="75" alt="" /> <div class="a">terews</div> <div class="b">eispiecees</div><div class="col">red</div>
 </div>
 <div class="box">
-<img src="4.jpg" width="75" height="75" alt="" /> <div class="a">aasdfsdtg</div> <div class="b">anoces</div><div class="col">blue</div>
+<img src="4.jpg" width="75" height="75" alt="" /> <div class="a">aasdfsdtg</div> <div class="b">anoces</div><div class="col">white</div>
 </div>
 <div class="box">
-<img src="5.jpg" width="75" height="75" alt="" /> <div class="a">hgfsdga</div> <div class="b">jonofnu</div><div class="col">red</div>
+<img src="5.jpg" width="75" height="75" alt="" /> <div class="a">hgfsdga</div> <div class="b">jonofnu</div><div class="col">white</div>
 </div>
 </div>
 <br/>
 <button id="sort">sort a </button>
 <button id="sort2">sort b </button>
-<button id="blue">remove blue</button>
+<button id="blue">blue</button>
+<button id="white">white</button>
 </body>
 </html>
