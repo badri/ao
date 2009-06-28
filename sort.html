@@ -23,31 +23,8 @@
  
  
   $("#sort").click(function(){
- 
-  var divs = $("div#h>div");
-  // sort 
-  divs.sort(function(a,b) {
-  return a.childNodes[3].textContent > b.childNodes[3].textContent;
-  });
- 
- 
-  var us_txt = [];
-  $.each($("div#h>div>div.a"), function(i) {
-  us_txt[i] = $("div#h>div>div.a").eq(i).text();
-  });
- 
-  var s_txt = [];
-  $.each(divs, function(i) {
-  s_txt[i] = divs[i].childNodes[3].textContent;
-  });
-
-  var ri = [];
+  var ri = $("div#h>div>div.a").tsort({returns:true,place:"org"}); 
 			     
-  for(var j=0; j< s_txt.length;j++) {
-  ri[j] = index_of(us_txt, s_txt[j]);
-  }
-
-   
   $.each($("div#h>div"), function(i) {
       $("div#h>div").eq(ri[i]).animate({"left": left[i]}, "slow");
      });
@@ -55,36 +32,7 @@
 
   /* ---------------------------------------------- */  
   $("#sort2").click(function(){
- 
-  var divs = $("div#h>div");
-  // sort 
-  divs.sort(function(a,b) {
-  return a.childNodes[5].textContent > b.childNodes[5].textContent;
-  });
- 
- 
-  var us_txt = [];
-  $.each($("div#h>div>div.b"), function(i) {
-  us_txt[i] = $("div#h>div>div.b").eq(i).text();
-  });
- 
-  var s_txt = [];
-  $.each(divs, function(i) {
-  s_txt[i] = divs[i].childNodes[5].textContent;
-  });
-
-  var ri = [];
-
-  function index_of(arr, ele) {
-   for(var i=0; i< arr.length; i++){
-      if(arr[i] == ele) return i;
-   }
-  }
-			     
-  for(var j=0; j< s_txt.length;j++) {
-  ri[j] = index_of(us_txt, s_txt[j]);
-  }
-
+  var ri = $("div#h>div>div.b").tsort({returns:true,place:"org"}); 
    
   $.each($("div#h>div"), function(i) {
       $("div#h>div").eq(ri[i]).animate({"left": left[i]}, "slow");
@@ -93,7 +41,12 @@
 
   /* ---------------------------------------------- */
   $("#blue").click(function(){
-   var sorted_array = $("div#h>div>div.col").tsort({returns:true,place:"org"});
+        blue_only = function (x) {
+		  x=(x=="blue")?1:0;
+		  return x;
+         }
+
+   var sorted_array = $("div#h>div>div.col").tsort({returns:true,place:"org", process_var:blue_only});
    $.each($("div#h>div"), function(i) {
       $("div#h>div").eq(sorted_array[i]).animate({"left": left[i]}, "slow");
      });
@@ -105,16 +58,9 @@
    var sorted_array = $("div#h>div>div.col").tsort({
     returns:true,
     place:"org",
-   sort:   function(a,b) { 
-      var x = a.s.toLowerCase?a.s.toLowerCase():a.s;
-      var y = b.s.toLowerCase?b.s.toLowerCase():b.s;
-      if (isNum(a.s)&&isNum(b.s)) {
-        x = parseFloat(a.s);
-        y = parseFloat(b.s);
-      }
+   process_var:   function(x) { 
       x=(x=="white")?1:0;
-      y=(y=="white")?1:0;
-      return x<y;
+      return x;
    }
    });
 
